@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIFA World Cup 2026 · Schedule (NZST)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0c12;color:#e0e0e0;font-family:'Inter',sans-serif;min-height:100vh;padding:24px 28px 48px}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.hdr-left{display:flex;align-items:center;gap:16px}
+.trophy{font-size:36px;line-height:1}
+.hdr-title{font-size:24px;font-weight:600;color:#f5f5f5;letter-spacing:-0.3px}
+.hdr-sub{font-size:11px;color:#555;margin-top:3px}
+.nz-pill{display:inline-block;background:#0a2e16;border:1px solid #2daa55;color:#3ddb6a;font-size:11px;font-weight:500;padding:2px 9px;border-radius:20px;margin-left:8px;vertical-align:middle}
+.nav{display:flex;align-items:center;gap:10px;background:#13161f;border:1px solid #22263a;border-radius:10px;padding:8px 14px}
+.nav button{background:transparent;border:1px solid #2a2d3a;border-radius:6px;color:#aaa;font-size:15px;width:32px;height:32px;cursor:pointer;transition:background .15s}
+.nav button:hover{background:#1e2130;color:#fff}
+.nav button:disabled{opacity:.2;cursor:default}
+.nav-center{text-align:center}
+.nav-label{font-size:13px;font-weight:500;color:#ccc;min-width:190px}
+.nav-dots{display:flex;gap:5px;justify-content:center;margin-top:5px}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:#2a2d3a;cursor:pointer;transition:background .15s}
+.nav-dot.active{background:#e6b830}
+.stage-badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 11px;border-radius:6px;margin-bottom:12px;letter-spacing:.02em}
+.s-gs{background:#0d2233;color:#5bc4f5;border:1px solid #1a4a6a}
+.s-r32{background:#0d2b18;color:#5be89a;border:1px solid #1a5a35}
+.s-r16{background:#2b1f00;color:#f5c842;border:1px solid #5a4000}
+.s-qf{background:#2b1000;color:#f58c42;border:1px solid #5a2800}
+.s-sf{background:#1a1040;color:#a894f5;border:1px solid #3a2880}
+.s-fin{background:#2a1800;color:#f5c842;border:1px solid #6a4000}
+.grid{display:grid;gap:8px}
+.g7{grid-template-columns:repeat(7,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.day-col{background:#13161f;border:1px solid #1e2130;border-radius:10px;padding:10px 9px 12px;min-height:110px}
+.day-col.today{border-color:#e6b830;box-shadow:0 0 0 1px #e6b83030}
+.day-name{font-size:9px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.07em;margin-bottom:1px}
+.day-date{font-size:14px;font-weight:500;color:#bbb;margin-bottom:9px}
+.today .day-date{color:#e6b830}
+.rest{font-size:10px;color:#252830;font-style:italic}
+.match{border-left:2px solid #378ADD;padding:4px 0 4px 7px;margin-bottom:7px;border-radius:0 4px 4px 0}
+.m-grp{border-left-color:#378ADD}
+.m-r32{border-left-color:#3db87a}
+.m-r16{border-left-color:#e6b830}
+.m-qf{border-left-color:#e06830}
+.m-sf{border-left-color:#9b82e8}
+.m-fin{border-left-color:#e0a030;background:#1a1000;border-radius:0 6px 6px 0}
+.m-nz{border-left:2px solid #3ddb6a!important;background:#061a0d;border-radius:0 6px 6px 0}
+.grp-lbl{font-size:9px;color:#444;margin-bottom:2px}
+.team-row{display:flex;align-items:center;gap:4px;line-height:1.55}
+.team-flag{font-size:14px;line-height:1}
+.team-name{font-size:11px;color:#ccc}
+.nz-team .team-name{color:#3ddb6a;font-weight:600}
+.vs{font-size:8px;color:#2a2d3a;padding-left:18px;line-height:1}
+.meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px;font-size:9px}
+.meta .t{color:#4a6a7a}
+.meta .v{color:#2d5070}
+.tbc{font-size:10px;color:#2a2d3a;font-style:italic}
+.final-lbl{font-size:12px;font-weight:600;color:#e6b830}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;padding-top:12px;border-top:1px solid #1a1e2a}
+.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:#444}
+.leg-dot{width:8px;height:8px;border-radius:50%}
+.ticker{position:fixed;bottom:0;left:0;right:0;background:#0d1018;border-top:1px solid #1a1e2a;padding:7px 28px;font-size:11px;color:#444;display:flex;align-items:center;justify-content:space-between}
+.t-nz{color:#3ddb6a;font-weight:500}
+.t-clock{color:#3a4a5a}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="trophy">🏆</div>
+    <div>
+      <div class="hdr-title">FIFA World Cup 2026 <span class="nz-pill">🇳🇿 NZ matches highlighted</span></div>
+      <div class="hdr-sub">All dates &amp; kick-off times in NZST (UTC+12) &nbsp;·&nbsp; 12 June – 20 July 2026 &nbsp;·&nbsp; USA · Canada · Mexico</div>
+    </div>
+  </div>
+  <div class="nav">
+    <button id="btn-prev" onclick="changeWeek(-1)">&#8592;</button>
+    <div class="nav-center">
+      <div class="nav-label" id="nav-label"></div>
+      <div class="nav-dots" id="nav-dots"></div>
+    </div>
+    <button id="btn-next" onclick="changeWeek(1)">&#8594;</button>
+  </div>
+</div>
+<div id="content"></div>
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:#378ADD"></div>Group stage</div>
+  <div class="leg"><div class="leg-dot" style="background:#3db87a"></div>Round of 32</div>
+  <div class="leg"><div class="leg-dot" style="background:#e6b830"></div>Round of 16</div>
+  <div class="leg"><div class="leg-dot" style="background:#e06830"></div>Quarterfinals</div>
+  <div class="leg"><div class="leg-dot" style="background:#9b82e8"></div>Semifinals</div>
+  <div class="leg"><div class="leg-dot" style="background:#e0a030"></div>Final</div>
+  <div class="leg"><div class="leg-dot" style="background:#3ddb6a"></div>NZ match</div>
+  <div class="leg"><div class="leg-dot" style="background:#e6b830;border:1px solid #e6b830"></div>Today</div>
+</div>
+<div class="ticker">
+  <div>Auto-advancing · NZST dates &amp; times</div>
+  <div id="t-nz" class="t-nz"></div>
+  <div id="t-clock" class="t-clock"></div>
+</div>
+
+<script>
+// All dates/times are NZST (UTC+12) — pre-calculated from UTC
+const W=[
+ {label:"Week 1 · 12–18 Jun",sl:"Group stage",sc:"s-gs",cols:7,days:[
+  {n:"Fri",d:"12 Jun",iso:"2026-06-12",m:[
+   {t:[["🇲🇽","Mexico"],["🇿🇦","South Africa"]],time:"7:00 AM",v:"Mexico City",g:"Group A",c:"m-grp"},
+   {t:[["🇰🇷","South Korea"],["🇨🇿","Czechia"]],time:"2:00 PM",v:"Guadalajara",g:"Group A",c:"m-grp"}
+  ]},
+  {n:"Sat",d:"13 Jun",iso:"2026-06-13",m:[
+   {t:[["🇨🇦","Canada"],["🇧🇦","Bosnia"]],time:"7:00 AM",v:"Toronto",g:"Group B",c:"m-grp"},
+   {t:[["🇺🇸","USA"],["🇵🇾","Paraguay"]],time:"1:00 PM",v:"Los Angeles",g:"Group D",c:"m-grp"}
+  ]},
+  {n:"Sun",d:"14 Jun",iso:"2026-06-14",m:[
+   {t:[["🇶🇦","Qatar"],["🇨🇭","Switzerland"]],time:"7:00 AM",v:"San Francisco",g:"Group B",c:"m-grp"},
+   {t:[["🇧🇷","Brazil"],["🇲🇦","Morocco"]],time:"10:00 AM",v:"New Jersey",g:"Group C",c:"m-grp"},
+   {t:[["🇭🇹","Haiti"],["🏴󠁧󠁢󠁳󠁣󠁴󠁿","Scotland"]],time:"1:00 PM",v:"Boston",g:"Group C",c:"m-grp"},
+   {t:[["🇦🇺","Australia"],["🇹🇷","Türkiye"]],time:"4:00 PM",v:"Vancouver",g:"Group D",c:"m-grp"}
+  ]},
+  {n:"Mon",d:"15 Jun",iso:"2026-06-15",m:[
+   {t:[["🇩🇪","Germany"],["🇨🇼","Curaçao"]],time:"5:00 AM",v:"Houston",g:"Group E",c:"m-grp"},
+   {t:[["🇳🇱","Netherlands"],["🇯🇵","Japan"]],time:"8:00 AM",v:"Dallas",g:"Group F",c:"m-grp"},
+   {t:[["🇨🇮","Ivory Coast"],["🇪🇨","Ecuador"]],time:"11:00 AM",v:"Philadelphia",g:"Group E",c:"m-grp"},
+   {t:[["🇸🇪","Sweden"],["🇹🇳","Tunisia"]],time:"2:00 PM",v:"Monterrey",g:"Group F",c:"m-grp"}
+  ]},
+  {n:"Tue",d:"16 Jun",iso:"2026-06-16",m:[
+   {t:[["🇪🇸","Spain"],["🇨🇻","Cape Verde"]],time:"4:00 AM",v:"Atlanta",g:"Group H",c:"m-grp"},
+   {t:[["🇧🇪","Belgium"],["🇪🇬","Egypt"]],time:"7:00 AM",v:"Vancouver",g:"Group G",c:"m-grp"},
+   {t:[["🇸🇦","Saudi Arabia"],["🇺🇾","Uruguay"]],time:"10:00 AM",v:"Miami",g:"Group H",c:"m-grp"},
+   {t:[["🇮🇷","Iran"],["🇳🇿","New Zealand"]],time:"1:00 PM",v:"Los Angeles",g:"Group G",c:"m-grp",nz:true}
+  ]},
+  {n:"Wed",d:"17 Jun",iso:"2026-06-17",m:[
+   {t:[["🇫🇷","France"],["🇸🇳","Senegal"]],time:"7:00 AM",v:"New Jersey",g:"Group I",c:"m-grp"},
+   {t:[["🇮🇶","Iraq"],["🇳🇴","Norway"]],time:"10:00 AM",v:"Boston",g:"Group I",c:"m-grp"},
+   {t:[["🇦🇷","Argentina"],["🇩🇿","Algeria"]],time:"1:00 PM",v:"Kansas City",g:"Group J",c:"m-grp"},
+   {t:[["🇦🇹","Austria"],["🇯🇴","Jordan"]],time:"4:00 PM",v:"San Francisco",g:"Group J",c:"m-grp"}
+  ]},
+  {n:"Thu",d:"18 Jun",iso:"2026-06-18",m:[
+   {t:[["🇵🇹","Portugal"],["🇨🇩","DR Congo"]],time:"5:00 AM",v:"Houston",g:"Group K",c:"m-grp"},
+   {t:[["🏴󠁧󠁢󠁥󠁮󠁧󠁿","England"],["🇭🇷","Croatia"]],time:"8:00 AM",v:"Dallas",g:"Group L",c:"m-grp"},
+   {t:[["🇬🇭","Ghana"],["🇵🇦","Panama"]],time:"11:00 AM",v:"Toronto",g:"Group L",c:"m-grp"},
+   {t:[["🇺🇿","Uzbekistan"],["🇨🇴","Colombia"]],time:"2:00 PM",v:"Mexico City",g:"Group K",c:"m-grp"}
+  ]}
+ ]},
+ {label:"Week 2 · 19–25 Jun",sl:"Group stage",sc:"s-gs",cols:7,days:[
+  {n:"Fri",d:"19 Jun",iso:"2026-06-19",m:[
+   {t:[["🇨🇿","Czechia"],["🇿🇦","South Africa"]],time:"4:00 AM",v:"Atlanta",g:"Group A",c:"m-grp"},
+   {t:[["🇨🇭","Switzerland"],["🇧🇦","Bosnia"]],time:"7:00 AM",v:"Los Angeles",g:"Group B",c:"m-grp"},
+   {t:[["🇨🇦","Canada"],["🇶🇦","Qatar"]],time:"10:00 AM",v:"Vancouver",g:"Group B",c:"m-grp"},
+   {t:[["🇲🇽","Mexico"],["🇰🇷","South Korea"]],time:"1:00 PM",v:"Guadalajara",g:"Group A",c:"m-grp"}
+  ]},
+  {n:"Sat",d:"20 Jun",iso:"2026-06-20",m:[
+   {t:[["🇺🇸","USA"],["🇦🇺","Australia"]],time:"7:00 AM",v:"Seattle",g:"Group D",c:"m-grp"},
+   {t:[["🏴󠁧󠁢󠁳󠁣󠁴󠁿","Scotland"],["🇲🇦","Morocco"]],time:"10:00 AM",v:"Boston",g:"Group C",c:"m-grp"},
+   {t:[["🇧🇷","Brazil"],["🇭🇹","Haiti"]],time:"1:00 PM",v:"Philadelphia",g:"Group C",c:"m-grp"},
+   {t:[["🇹🇷","Türkiye"],["🇵🇾","Paraguay"]],time:"4:00 PM",v:"San Francisco",g:"Group D",c:"m-grp"}
+  ]},
+  {n:"Sun",d:"21 Jun",iso:"2026-06-21",m:[
+   {t:[["🇳🇱","Netherlands"],["🇸🇪","Sweden"]],time:"5:00 AM",v:"Houston",g:"Group F",c:"m-grp"},
+   {t:[["🇩🇪","Germany"],["🇨🇮","Ivory Coast"]],time:"8:00 AM",v:"Toronto",g:"Group E",c:"m-grp"},
+   {t:[["🇪🇨","Ecuador"],["🇨🇼","Curaçao"]],time:"11:00 AM",v:"Kansas City",g:"Group E",c:"m-grp"},
+   {t:[["🇹🇳","Tunisia"],["🇯🇵","Japan"]],time:"2:00 PM",v:"Monterrey",g:"Group F",c:"m-grp"}
+  ]},
+  {n:"Mon",d:"22 Jun",iso:"2026-06-22",m:[
+   {t:[["🇪🇸","Spain"],["🇸🇦","Saudi Arabia"]],time:"4:00 AM",v:"Seattle",g:"Group H",c:"m-grp"},
+   {t:[["🇧🇪","Belgium"],["🇮🇷","Iran"]],time:"7:00 AM",v:"Atlanta",g:"Group G",c:"m-grp"},
+   {t:[["🇺🇾","Uruguay"],["🇨🇻","Cape Verde"]],time:"10:00 AM",v:"Miami",g:"Group H",c:"m-grp"},
+   {t:[["🇪🇬","Egypt"],["🇳🇿","New Zealand"]],time:"1:00 PM",v:"Los Angeles",g:"Group G",c:"m-grp",nz:true}
+  ]},
+  {n:"Tue",d:"23 Jun",iso:"2026-06-23",m:[
+   {t:[["🇫🇷","France"],["🇮🇶","Iraq"]],time:"4:00 AM",v:"Kansas City",g:"Group I",c:"m-grp"},
+   {t:[["🇸🇳","Senegal"],["🇳🇴","Norway"]],time:"7:00 AM",v:"Seattle",g:"Group I",c:"m-grp"},
+   {t:[["🇦🇷","Argentina"],["🇦🇹","Austria"]],time:"10:00 AM",v:"Dallas",g:"Group J",c:"m-grp"},
+   {t:[["🇩🇿","Algeria"],["🇯🇴","Jordan"]],time:"1:00 PM",v:"Los Angeles",g:"Group J",c:"m-grp"}
+  ]},
+  {n:"Wed",d:"24 Jun",iso:"2026-06-24",m:[
+   {t:[["🇵🇹","Portugal"],["🇺🇿","Uzbekistan"]],time:"4:00 AM",v:"Kansas City",g:"Group K",c:"m-grp"},
+   {t:[["🏴󠁧󠁢󠁥󠁮󠁧󠁿","England"],["🇬🇭","Ghana"]],time:"7:00 AM",v:"Atlanta",g:"Group L",c:"m-grp"},
+   {t:[["🇭🇷","Croatia"],["🇵🇦","Panama"]],time:"10:00 AM",v:"Toronto",g:"Group L",c:"m-grp"},
+   {t:[["🇨🇩","DR Congo"],["🇨🇴","Colombia"]],time:"1:00 PM",v:"Houston",g:"Group K",c:"m-grp"}
+  ]},
+  {n:"Thu",d:"25 Jun",iso:"2026-06-25",m:[
+   {t:[["🇿🇦","South Africa"],["🇰🇷","South Korea"]],time:"4:00 AM",v:"Dallas",g:"Group A",c:"m-grp"},
+   {t:[["🇧🇦","Bosnia"],["🇶🇦","Qatar"]],time:"7:00 AM",v:"San Francisco",g:"Group B",c:"m-grp"},
+   {t:[["🏴󠁧󠁢󠁳󠁣󠁴󠁿","Scotland"],["🇭🇹","Haiti"]],time:"10:00 AM",v:"Philadelphia",g:"Group C",c:"m-grp"},
+   {t:[["🇨🇿","Czechia"],["🇲🇽","Mexico"]],time:"1:00 PM",v:"Mexico City",g:"Group A",c:"m-grp"}
+  ]}
+ ]},
+ {label:"Week 3 · 26 Jun – 2 Jul",sl:"Group stage ends · Round of 32 begins",sc:"s-gs",cols:7,days:[
+  {n:"Fri",d:"26 Jun",iso:"2026-06-26",m:[
+   {t:[["🇨🇭","Switzerland"],["🇨🇦","Canada"]],time:"4:00 AM",v:"Vancouver",g:"Group B",c:"m-grp"},
+   {t:[["🇵🇾","Paraguay"],["🇦🇺","Australia"]],time:"7:00 AM",v:"Dallas",g:"Group D",c:"m-grp"},
+   {t:[["🇹🇷","Türkiye"],["🇺🇸","USA"]],time:"10:00 AM",v:"Los Angeles",g:"Group D",c:"m-grp"},
+   {t:[["🇲🇦","Morocco"],["🇧🇷","Brazil"]],time:"1:00 PM",v:"Miami",g:"Group C",c:"m-grp"}
+  ]},
+  {n:"Sat",d:"27 Jun",iso:"2026-06-27",m:[
+   {t:[["🇯🇵","Japan"],["🇸🇪","Sweden"]],time:"4:00 AM",v:"Seattle",g:"Group F",c:"m-grp"},
+   {t:[["🇨🇮","Ivory Coast"],["🇩🇪","Germany"]],time:"7:00 AM",v:"Philadelphia",g:"Group E",c:"m-grp"},
+   {t:[["🇹🇳","Tunisia"],["🇳🇱","Netherlands"]],time:"10:00 AM",v:"Houston",g:"Group F",c:"m-grp"},
+   {t:[["🇳🇿","New Zealand"],["🇧🇪","Belgium"]],time:"1:00 PM",v:"Seattle",g:"Group G",c:"m-grp",nz:true}
+  ]},
+  {n:"Sun",d:"28 Jun",iso:"2026-06-28",m:[
+   {t:[["🇮🇷","Iran"],["🇪🇬","Egypt"]],time:"4:00 AM",v:"Boston",g:"Group G",c:"m-grp"},
+   {t:[["🇸🇦","Saudi Arabia"],["🇺🇾","Uruguay"]],time:"7:00 AM",v:"Kansas City",g:"Group H",c:"m-grp"},
+   {t:[["🇨🇻","Cape Verde"],["🇪🇸","Spain"]],time:"10:00 AM",v:"Atlanta",g:"Group H",c:"m-grp"},
+   {t:[["🇳🇴","Norway"],["🇫🇷","France"]],time:"1:00 PM",v:"New Jersey",g:"Group I",c:"m-grp"}
+  ]},
+  {n:"Mon",d:"29 Jun",iso:"2026-06-29",m:[
+   {tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"},
+   {tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"}
+  ]},
+  {n:"Tue",d:"30 Jun",iso:"2026-06-30",m:[
+   {tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"},
+   {tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"}
+  ]},
+  {n:"Wed",d:"1 Jul",iso:"2026-07-01",m:[
+   {tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"},
+   {tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"}
+  ]},
+  {n:"Thu",d:"2 Jul",iso:"2026-07-02",m:[
+   {tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"},
+   {tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"}
+  ]}
+ ]},
+ {label:"Week 4 · 3–9 Jul",sl:"Round of 32 · Round of 16",sc:"s-r32",cols:7,days:[
+  {n:"Fri",d:"3 Jul",iso:"2026-07-03",m:[{tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"}]},
+  {n:"Sat",d:"4 Jul",iso:"2026-07-04",m:[{tbc:true,g:"Round of 32",c:"m-r32"},{tbc:true,g:"Round of 32",c:"m-r32"}]},
+  {n:"Sun",d:"5 Jul",iso:"2026-07-05",m:[{tbc:true,g:"Round of 16",c:"m-r16"},{tbc:true,g:"Round of 16",c:"m-r16"}]},
+  {n:"Mon",d:"6 Jul",iso:"2026-07-06",m:[{tbc:true,g:"Round of 16",c:"m-r16"},{tbc:true,g:"Round of 16",c:"m-r16"}]},
+  {n:"Tue",d:"7 Jul",iso:"2026-07-07",m:[{tbc:true,g:"Round of 16",c:"m-r16"},{tbc:true,g:"Round of 16",c:"m-r16"}]},
+  {n:"Wed",d:"8 Jul",iso:"2026-07-08",m:[{tbc:true,g:"Round of 16",c:"m-r16"},{tbc:true,g:"Round of 16",c:"m-r16"}]},
+  {n:"Thu",d:"9 Jul",iso:"2026-07-09",m:[]}
+ ]},
+ {label:"Week 5 · 10–16 Jul",sl:"Quarterfinals · Semifinals",sc:"s-qf",cols:7,days:[
+  {n:"Fri",d:"10 Jul",iso:"2026-07-10",m:[{tbc:true,g:"Quarterfinal",c:"m-qf"},{tbc:true,g:"Quarterfinal",c:"m-qf"}]},
+  {n:"Sat",d:"11 Jul",iso:"2026-07-11",m:[{tbc:true,g:"Quarterfinal",c:"m-qf"},{tbc:true,g:"Quarterfinal",c:"m-qf"}]},
+  {n:"Sun",d:"12 Jul",iso:"2026-07-12",m:[{tbc:true,g:"Quarterfinal",c:"m-qf"}]},
+  {n:"Mon",d:"13 Jul",iso:"2026-07-13",m:[]},
+  {n:"Tue",d:"14 Jul",iso:"2026-07-14",m:[]},
+  {n:"Wed",d:"15 Jul",iso:"2026-07-15",m:[{tbc:true,g:"Semifinal",c:"m-sf"}]},
+  {n:"Thu",d:"16 Jul",iso:"2026-07-16",m:[{tbc:true,g:"Semifinal",c:"m-sf"}]}
+ ]},
+ {label:"Week 6 · 17–20 Jul",sl:"3rd place playoff · Final",sc:"s-fin",cols:4,days:[
+  {n:"Fri",d:"17 Jul",iso:"2026-07-17",m:[]},
+  {n:"Sat",d:"18 Jul",iso:"2026-07-18",m:[]},
+  {n:"Sun",d:"19 Jul",iso:"2026-07-19",m:[{tbc:true,g:"3rd place playoff",c:"m-sf",time:"7:00 AM",v:"TBC"}]},
+  {n:"Mon",d:"20 Jul",iso:"2026-07-20",m:[{fin:true,time:"7:00 AM",v:"MetLife Stadium, New Jersey",g:"World Cup Final",c:"m-fin"}]}
+ ]}
+];
+
+// NZ matches for ticker
+const NZ_MATCHES=[
+ {d:"Tue 16 Jun",t1:"Iran",t2:"New Zealand",time:"1:00 PM",v:"Los Angeles"},
+ {d:"Mon 22 Jun",t1:"Egypt",t2:"New Zealand",time:"1:00 PM",v:"Los Angeles"},
+ {d:"Sat 27 Jun",t1:"New Zealand",t2:"Belgium",time:"1:00 PM",v:"Seattle"}
+];
+
+let wk=0;
+
+function getNZToday(){
+ const now=new Date();
+ const utc=now.getTime()+now.getTimezoneOffset()*60000;
+ const nz=new Date(utc+12*3600000);
+ return nz.getFullYear()+"-"+String(nz.getMonth()+1).padStart(2,"0")+"-"+String(nz.getDate()).padStart(2,"0");
+}
+
+function getAutoWeek(){
+ const today=getNZToday();
+ let best=0;
+ for(let i=0;i<W.length;i++){
+  const days=W[i].days.map(d=>d.iso);
+  if(days.includes(today))return i;
+  if(W[i].days[0].iso<=today)best=i;
+ }
+ return best;
+}
+
+function renderMatch(m){
+ if(m.fin)return`<div class="match m-fin"><div class="grp-lbl">${m.g}</div><div class="final-lbl">🏆 To be confirmed</div><div class="meta"><span class="t">⏰ ${m.time} NZST</span><span class="v">📍 ${m.v}</span></div></div>`;
+ if(m.tbc){
+  const ti=m.time?`<div class="meta"><span class="t">⏰ ${m.time} NZST</span>${m.v&&m.v!="TBC"?`<span class="v">📍 ${m.v}</span>`:""}</div>`:"";
+  return`<div class="match ${m.c}"><div class="grp-lbl">${m.g}</div><div class="tbc">To be confirmed</div>${ti}</div>`;
+ }
+ const [f1,n1]=m.t[0],[f2,n2]=m.t[1];
+ const nz1=n1==="New Zealand",nz2=n2==="New Zealand";
+ return`<div class="match ${m.nz?"m-nz":m.c}">
+  <div class="grp-lbl">${m.g}</div>
+  <div class="team-row ${nz1?"nz-team":""}"><span class="team-flag">${f1}</span><span class="team-name">${n1}</span></div>
+  <div class="vs">vs</div>
+  <div class="team-row ${nz2?"nz-team":""}"><span class="team-flag">${f2}</span><span class="team-name">${n2}</span></div>
+  <div class="meta"><span class="t">⏰ ${m.time} NZST</span><span class="v">📍 ${m.v}</span></div>
+ </div>`;
+}
+
+function render(){
+ const w=W[wk],today=getNZToday();
+ document.getElementById("nav-label").textContent=w.label;
+ document.getElementById("btn-prev").disabled=wk===0;
+ document.getElementById("btn-next").disabled=wk===W.length-1;
+ document.getElementById("nav-dots").innerHTML=W.map((_,i)=>`<div class="nav-dot ${i===wk?"active":""}" onclick="jumpWeek(${i})" title="${W[i].label}"></div>`).join("");
+ const gc=w.cols===7?"g7":"g4";
+ let h=`<span class="stage-badge ${w.sc}">${w.sl}</span><div class="grid ${gc}">`;
+ for(const day of w.days){
+  const isT=day.iso===today;
+  h+=`<div class="day-col ${isT?"today":""}"><div class="day-name">${day.n}${isT?" · today":""}</div><div class="day-date">${day.d}</div>`;
+  if(!day.m.length)h+=`<div class="rest">Rest day</div>`;
+  for(const m of day.m)h+=renderMatch(m);
+  h+=`</div>`;
+ }
+ h+=`</div>`;
+ document.getElementById("content").innerHTML=h;
+
+ // Ticker: next NZ match
+ const todayMs=new Date(today).getTime();
+ const nextNZ=NZ_MATCHES.find(m=>{
+  const iso=W.flatMap(ww=>ww.days).find(dd=>dd.m.some(mm=>mm.nz&&mm.t&&(mm.t[0][1]===m.t1||mm.t[1][1]===m.t1)));
+  return iso&&new Date(iso.iso).getTime()>=todayMs;
+ });
+ if(nextNZ)document.getElementById("t-nz").textContent=`🇳🇿 Next NZ: ${nextNZ.t1} vs ${nextNZ.t2} · ${nextNZ.d} · ${nextNZ.time} NZST · ${nextNZ.v}`;
+ else document.getElementById("t-nz").textContent="🇳🇿 Group stage complete";
+}
+
+function changeWeek(d){wk=Math.max(0,Math.min(W.length-1,wk+d));render();}
+function jumpWeek(i){wk=i;render();}
+
+function clock(){
+ const now=new Date(),utc=now.getTime()+now.getTimezoneOffset()*60000,nz=new Date(utc+12*3600000);
+ const days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+ const h=String(nz.getHours()).padStart(2,"0"),m=String(nz.getMinutes()).padStart(2,"0");
+ document.getElementById("t-clock").textContent=`${days[nz.getDay()]} ${nz.getDate()} ${nz.toLocaleString("en-NZ",{month:"short"})} · ${h}:${m} NZST`;
+}
+
+function autoAdv(){const c=getAutoWeek();if(c!==wk){wk=c;render();}clock();}
+
+wk=getAutoWeek();render();clock();
+setInterval(autoAdv,60000);
+</script>
+</body>
+</html>
