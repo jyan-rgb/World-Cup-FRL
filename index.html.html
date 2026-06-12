@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIFA World Cup 2026 · Schedule</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0c12;
+    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 28px 32px 24px;
+  }
+
+  /* ── HEADER ─────────────────────────────────────── */
+  .hdr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .hdr-left { display: flex; align-items: center; gap: 18px; }
+  .trophy { font-size: 38px; line-height: 1; }
+  .hdr-title { font-size: 26px; font-weight: 600; color: #f5f5f5; letter-spacing: -0.3px; }
+  .hdr-sub { font-size: 12px; color: #666; margin-top: 3px; }
+  .nz-pill {
+    display: inline-block;
+    background: #0a2e16;
+    border: 1px solid #2daa55;
+    color: #3ddb6a;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  /* ── WEEK NAVIGATOR ─────────────────────────────── */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #13161f;
+    border: 1px solid #22263a;
+    border-radius: 10px;
+    padding: 8px 16px;
+  }
+  .nav button {
+    background: transparent;
+    border: 1px solid #2a2d3a;
+    border-radius: 6px;
+    color: #aaa;
+    font-size: 16px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .nav button:hover { background: #1e2130; color: #fff; }
+  .nav button:disabled { opacity: 0.25; cursor: default; }
+  .nav-label { font-size: 14px; font-weight: 500; color: #ccc; min-width: 200px; text-align: center; }
+  .nav-dots { display: flex; gap: 5px; margin-left: 4px; }
+  .nav-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #2a2d3a; cursor: pointer; transition: background 0.15s;
+  }
+  .nav-dot.active { background: #e6b830; }
+
+  /* ── STAGE BADGE ─────────────────────────────────── */
+  .stage-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+  .s-gs  { background: #0d2233; color: #5bc4f5; border: 1px solid #1a4a6a; }
+  .s-r32 { background: #0d2b18; color: #5be89a; border: 1px solid #1a5a35; }
+  .s-r16 { background: #2b1f00; color: #f5c842; border: 1px solid #5a4000; }
+  .s-qf  { background: #2b1000; color: #f58c42; border: 1px solid #5a2800; }
+  .s-sf  { background: #1a1040; color: #a894f5; border: 1px solid #3a2880; }
+  .s-fin { background: #2a1800; color: #f5c842; border: 1px solid #6a4000; }
+
+  /* ── DAY GRID ────────────────────────────────────── */
+  .grid {
+    display: grid;
+    gap: 10px;
+  }
+  .grid-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  .day-col {
+    background: #13161f;
+    border: 1px solid #1e2130;
+    border-radius: 10px;
+    padding: 12px 10px 14px;
+    min-height: 120px;
+  }
+  .day-col.today { border-color: #e6b830; box-shadow: 0 0 0 1px #e6b83040; }
+
+  .day-name {
+    font-size: 9px;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+  .day-date {
+    font-size: 15px;
+    font-weight: 500;
+    color: #bbb;
+    margin-bottom: 10px;
+  }
+  .today .day-date { color: #e6b830; }
+  .rest { font-size: 11px; color: #2a2d3a; font-style: italic; }
+
+  /* ── MATCH CARD ──────────────────────────────────── */
+  .match {
+    border-left: 2px solid #378ADD;
+    padding: 5px 0 5px 8px;
+    margin-bottom: 8px;
+    border-radius: 0 4px 4px 0;
+  }
+  .match.grp  { border-left-color: #378ADD; }
+  .match.r32  { border-left-color: #3db87a; }
+  .match.r16  { border-left-color: #e6b830; }
+  .match.qf   { border-left-color: #e06830; }
+  .match.sf   { border-left-color: #9b82e8; }
+  .match.fin  { border-left-color: #e0a030; background: #1a1000; border-radius: 0 6px 6px 0; }
+  .match.nz   { border-left: 2px solid #3ddb6a; background: #061a0d; border-radius: 0 6px 6px 0; }
+
+  .grp-lbl { font-size: 9px; color: #444; margin-bottom: 3px; }
+  .team-row { display: flex; align-items: center; gap: 5px; line-height: 1.6; }
+  .team-flag { font-size: 15px; line-height: 1; }
+  .team-name { font-size: 11px; color: #ccc; }
+  .team-row.nz-team .team-name { color: #3ddb6a; font-weight: 600; }
+  .vs-divider { font-size: 9px; color: #333; padding-left: 20px; line-height: 1; }
+  .match-meta {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 4px;
+    font-size: 10px; color: #4a6a7a;
+  }
+  .match-meta .time { color: #5a7a8a; }
+  .match-meta .venue { color: #3d6080; }
+  .tbc-label { font-size: 10px; color: #333; font-style: italic; }
+  .final-label { font-size: 13px; font-weight: 600; color: #e6b830; }
+
+  /* ── LEGEND ──────────────────────────────────────── */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #1a1e2a;
+  }
+  .leg { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #555; }
+  .leg-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* ── AUTO TICKER ─────────────────────────────────── */
+  .ticker {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #0d1018;
+    border-top: 1px solid #1e2130;
+    padding: 8px 32px;
+    font-size: 12px; color: #555;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .ticker-nz { color: #3ddb6a; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="trophy">🏆</div>
+    <div>
+      <div class="hdr-title">FIFA World Cup 2026 <span class="nz-pill">🇳🇿 NZ matches highlighted</span></div>
+      <div class="hdr-sub">All kick-off times in NZST (UTC+12) &nbsp;·&nbsp; 11 June – 19 July 2026 &nbsp;·&nbsp; USA · Canada · Mexico</div>
+    </div>
+  </div>
+  <div class="nav">
+    <button id="btn-prev" onclick="changeWeek(-1)">&#8592;</button>
+    <div>
+      <div class="nav-label" id="nav-label"></div>
+      <div class="nav-dots" id="nav-dots"></div>
+    </div>
+    <button id="btn-next" onclick="changeWeek(1)">&#8594;</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div id="content"></div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:#378ADD"></div>Group stage</div>
+  <div class="leg"><div class="leg-dot" style="background:#3db87a"></div>Round of 32</div>
+  <div class="leg"><div class="leg-dot" style="background:#e6b830"></div>Round of 16</div>
+  <div class="leg"><div class="leg-dot" style="background:#e06830"></div>Quarterfinals</div>
+  <div class="leg"><div class="leg-dot" style="background:#9b82e8"></div>Semifinals</div>
+  <div class="leg"><div class="leg-dot" style="background:#e0a030"></div>Final</div>
+  <div class="leg"><div class="leg-dot" style="background:#3ddb6a"></div>NZ match</div>
+  <div class="leg"><div class="leg-dot" style="background:#e6b830;border:1px solid #e6b830"></div>Today</div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div>Auto-advancing · showing current week</div>
+  <div id="ticker-nz" class="ticker-nz"></div>
+  <div id="ticker-clock"></div>
+</div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+// Each match: { teams: [[flag, name],[flag, name]], time: "NZST string", venue, grp, cls, nz? }
+// TBC matches for knockout rounds use tbc:true
+
+const WEEKS = [
+  {
+    label: "Week 1 · 11–17 Jun",
+    stageLbl: "Group stage",
+    stageCls: "s-gs",
+    cols: 7,
+    startDate: "2026-06-11",
+    days: [
+      { name:"Thu", date:"11 Jun", iso:"2026-06-11", matches:[
+        { teams:[["🇲🇽","Mexico"],["🇿🇦","South Africa"]], time:"7:00 AM", venue:"Mexico City", grp:"Group A", cls:"grp" },
+        { teams:[["🇰🇷","South Korea"],["🇨🇿","Czechia"]], time:"2:00 PM", venue:"Guadalajara", grp:"Group A", cls:"grp" }
+      ]},
+      { name:"Fri", date:"12 Jun", iso:"2026-06-12", matches:[
+        { teams:[["🇨🇦","Canada"],["🇧🇦","Bosnia"]], time:"7:00 AM", venue:"Toronto", grp:"Group B", cls:"grp" },
+        { teams:[["🇺🇸","USA"],["🇵🇾","Paraguay"]], time:"1:00 PM", venue:"Los Angeles", grp:"Group D", cls:"grp" }
+      ]},
+      { name:"Sat", date:"13 Jun", iso:"2026-06-13", matches:[
+        { teams:[["🇶🇦","Qatar"],["🇨🇭","Switzerland"]], time:"7:00 AM", venue:"San Francisco", grp:"Group B", cls:"grp" },
+        { teams:[["🇧🇷","Brazil"],["🇲🇦","Morocco"]], time:"10:00 AM", venue:"New Jersey", grp:"Group C", cls:"grp" },
+        { teams:[["🇭🇹","Haiti"],["🏴󠁧󠁢󠁳󠁣󠁴󠁿","Scotland"]], time:"1:00 PM", venue:"Boston", grp:"Group C", cls:"grp" },
+        { teams:[["🇦🇺","Australia"],["🇹🇷","Türkiye"]], time:"4:00 PM", venue:"Vancouver", grp:"Group D", cls:"grp" }
+      ]},
+      { name:"Sun", date:"14 Jun", iso:"2026-06-14", matches:[
+        { teams:[["🇩🇪","Germany"],["🇨🇼","Curaçao"]], time:"5:00 AM", venue:"Houston", grp:"Group E", cls:"grp" },
+        { teams:[["🇳🇱","Netherlands"],["🇯🇵","Japan"]], time:"8:00 AM", venue:"Dallas", grp:"Group F", cls:"grp" },
+        { teams:[["🇨🇮","Ivory Coast"],["🇪🇨","Ecuador"]], time:"11:00 AM", venue:"Philadelphia", grp:"Group E", cls:"grp" },
+        { teams:[["🇸🇪","Sweden"],["🇹🇳","Tunisia"]], time:"2:00 PM", venue:"Monterrey", grp:"Group F", cls:"grp" }
+      ]},
+      { name:"Mon", date:"15 Jun", iso:"2026-06-15", matches:[
+        { teams:[["🇪🇸","Spain"],["🇨🇻","Cape Verde"]], time:"4:00 AM", venue:"Atlanta", grp:"Group H", cls:"grp" },
+        { teams:[["🇧🇪","Belgium"],["🇪🇬","Egypt"]], time:"7:00 AM", venue:"Vancouver", grp:"Group G", cls:"grp" },
+        { teams:[["🇸🇦","Saudi Arabia"],["🇺🇾","Uruguay"]], time:"10:00 AM", venue:"Miami", grp:"Group H", cls:"grp" },
+        { teams:[["🇮🇷","Iran"],["🇳🇿","New Zealand"]], time:"1:00 PM", venue:"Los Angeles", grp:"Group G", cls:"grp", nz:true }
+      ]},
+      { name:"Tue", date:"16 Jun", iso:"2026-06-16", matches:[
+        { teams:[["🇫🇷","France"],["🇸🇳","Senegal"]], time:"7:00 AM", venue:"New Jersey", grp:"Group I", cls:"grp" },
+        { teams:[["🇮🇶","Iraq"],["🇳🇴","Norway"]], time:"10:00 AM", venue:"Boston", grp:"Group I", cls:"grp" },
+        { teams:[["🇦🇷","Argentina"],["🇩🇿","Algeria"]], time:"1:00 PM", venue:"Kansas City", grp:"Group J", cls:"grp" },
+        { teams:[["🇦🇹","Austria"],["🇯🇴","Jordan"]], time:"4:00 PM", venue:"San Francisco", grp:"Group J", cls:"grp" }
+      ]},
+      { name:"Wed", date:"17 Jun", iso:"2026-06-17", matches:[
+        { teams:[["🇵🇹","Portugal"],["🇨🇩","DR Congo"]], time:"5:00 AM", venue:"Houston", grp:"Group K", cls:"grp" },
+        { teams:[["🏴󠁧󠁢󠁥󠁮󠁧󠁿","England"],["🇭🇷","Croatia"]], time:"8:00 AM", venue:"Dallas", grp:"Group L", cls:"grp" },
+        { teams:[["🇬🇭","Ghana"],["🇵🇦","Panama"]], time:"11:00 AM", venue:"Toronto", grp:"Group L", cls:"grp" },
+        { teams:[["🇺🇿","Uzbekistan"],["🇨🇴","Colombia"]], time:"2:00 PM", venue:"Mexico City", grp:"Group K", cls:"grp" }
+      ]}
+    ]
+  },
+  {
+    label: "Week 2 · 18–24 Jun",
+    stageLbl: "Group stage",
+    stageCls: "s-gs",
+    cols: 7,
+    startDate: "2026-06-18",
+    days: [
+      { name:"Thu", date:"18 Jun", iso:"2026-06-18", matches:[
+        { teams:[["🇨🇿","Czechia"],["🇿🇦","South Africa"]], time:"4:00 AM", venue:"Atlanta", grp:"Group A", cls:"grp" },
+        { teams:[["🇨🇭","Switzerland"],["🇧🇦","Bosnia"]], time:"7:00 AM", venue:"Los Angeles", grp:"Group B", cls:"grp" },
+        { teams:[["🇨🇦","Canada"],["🇶🇦","Qatar"]], time:"10:00 AM", venue:"Vancouver", grp:"Group B", cls:"grp" },
+        { teams:[["🇲🇽","Mexico"],["🇰🇷","South Korea"]], time:"1:00 PM", venue:"Guadalajara", grp:"Group A", cls:"grp" }
+      ]},
+      { name:"Fri", date:"19 Jun", iso:"2026-06-19", matches:[
+        { teams:[["🇺🇸","USA"],["🇦🇺","Australia"]], time:"7:00 AM", venue:"Seattle", grp:"Group D", cls:"grp" },
+        { teams:[["🏴󠁧󠁢󠁳󠁣󠁴󠁿","Scotland"],["🇲🇦","Morocco"]], time:"10:00 AM", venue:"Boston", grp:"Group C", cls:"grp" },
+        { teams:[["🇧🇷","Brazil"],["🇭🇹","Haiti"]], time:"1:00 PM", venue:"Philadelphia", grp:"Group C", cls:"grp" },
+        { teams:[["🇹🇷","Türkiye"],["🇵🇾","Paraguay"]], time:"4:00 PM", venue:"San Francisco", grp:"Group D", cls:"grp" }
+      ]},
+      { name:"Sat", date:"20 Jun", iso:"2026-06-20", matches:[
+        { teams:[["🇳🇱","Netherlands"],["🇸🇪","Sweden"]], time:"5:00 AM", venue:"Houston", grp:"Group F", cls:"grp" },
+        { teams:[["🇩🇪","Germany"],["🇨🇮","Ivory Coast"]], time:"8:00 AM", venue:"Toronto", grp:"Group E", cls:"grp" },
+        { teams:[["🇪🇨","Ecuador"],["🇨🇼","Curaçao"]], time:"11:00 AM", venue:"Kansas City", grp:"Group E", cls:"grp" },
+        { teams:[["🇹🇳","Tunisia"],["🇯🇵","Japan"]], time:"2:00 PM", venue:"Monterrey", grp:"Group F", cls:"grp" }
+      ]},
+      { name:"Sun", date:"21 Jun", iso:"2026-06-21", matches:[
+        { teams:[["🇪🇸","Spain"],["🇸🇦","Saudi Arabia"]], time:"4:00 AM", venue:"Seattle", grp:"Group H", cls:"grp" },
+        { teams:[["🇧🇪","Belgium"],["🇮🇷","Iran"]], time:"7:00 AM", venue:"Atlanta", grp:"Group G", cls:"grp" },
+        { teams:[["🇺🇾","Uruguay"],["🇨🇻","Cape Verde"]], time:"10:00 AM", venue:"Miami", grp:"Group H", cls:"grp" },
+        { teams:[["🇪🇬","Egypt"],["🇳🇿","New Zealand"]], time:"1:00 PM", venue:"Los Angeles", grp:"Group G", cls:"grp", nz:true }
+      ]},
+      { name:"Mon", date:"22 Jun", iso:"2026-06-22", matches:[
+        { teams:[["🇫🇷","France"],["🇮🇶","Iraq"]], time:"4:00 AM", venue:"Kansas City", grp:"Group I", cls:"grp" },
+        { teams:[["🇸🇳","Senegal"],["🇳🇴","Norway"]], time:"7:00 AM", venue:"Seattle", grp:"Group I", cls:"grp" },
+        { teams:[["🇦🇷","Argentina"],["🇦🇹","Austria"]], time:"10:00 AM", venue:"Dallas", grp:"Group J", cls:"grp" },
+        { teams:[["🇩🇿","Algeria"],["🇯🇴","Jordan"]], time:"1:00 PM", venue:"Los Angeles", grp:"Group J", cls:"grp" }
+      ]},
+      { name:"Tue", date:"23 Jun", iso:"2026-06-23", matches:[
+        { teams:[["🇵🇹","Portugal"],["🇺🇿","Uzbekistan"]], time:"4:00 AM", venue:"Kansas City", grp:"Group K", cls:"grp" },
+        { teams:[["🏴󠁧󠁢󠁥󠁮󠁧󠁿","England"],["🇬🇭","Ghana"]], time:"7:00 AM", venue:"Atlanta", grp:"Group L", cls:"grp" },
+        { teams:[["🇭🇷","Croatia"],["🇵🇦","Panama"]], time:"10:00 AM", venue:"Toronto", grp:"Group L", cls:"grp" },
+        { teams:[["🇨🇩","DR Congo"],["🇨🇴","Colombia"]], time:"1:00 PM", venue:"Houston", grp:"Group K", cls:"grp" }
+      ]},
+      { name:"Wed", date:"24 Jun", iso:"2026-06-24", matches:[
+        { teams:[["🇿🇦","South Africa"],["🇰🇷","South Korea"]], time:"4:00 AM", venue:"Dallas", grp:"Group A", cls:"grp" },
+        { teams:[["🇧🇦","Bosnia"],["🇶🇦","Qatar"]], time:"7:00 AM", venue:"San Francisco", grp:"Group B", cls:"grp" },
+        { teams:[["🏴󠁧󠁢󠁳󠁣󠁴󠁿","Scotland"],["🇭🇹","Haiti"]], time:"10:00 AM", venue:"Philadelphia", grp:"Group C", cls:"grp" },
+        { teams:[["🇨🇿","Czechia"],["🇲🇽","Mexico"]], time:"1:00 PM", venue:"Mexico City", grp:"Group A", cls:"grp" }
+      ]}
+    ]
+  },
+  {
+    label: "Week 3 · 25 Jun – 1 Jul",
+    stageLbl: "Group stage ends · Round of 32 begins",
+    stageCls: "s-gs",
+    cols: 7,
+    startDate: "2026-06-25",
+    days: [
+      { name:"Thu", date:"25 Jun", iso:"2026-06-25", matches:[
+        { teams:[["🇨🇭","Switzerland"],["🇨🇦","Canada"]], time:"4:00 AM", venue:"Vancouver", grp:"Group B", cls:"grp" },
+        { teams:[["🇵🇾","Paraguay"],["🇦🇺","Australia"]], time:"7:00 AM", venue:"Dallas", grp:"Group D", cls:"grp" },
+        { teams:[["🇹🇷","Türkiye"],["🇺🇸","USA"]], time:"10:00 AM", venue:"Los Angeles", grp:"Group D", cls:"grp" },
+        { teams:[["🇲🇦","Morocco"],["🇧🇷","Brazil"]], time:"1:00 PM", venue:"Miami", grp:"Group C", cls:"grp" }
+      ]},
+      { name:"Fri", date:"26 Jun", iso:"2026-06-26", matches:[
+        { teams:[["🇯🇵","Japan"],["🇸🇪","Sweden"]], time:"4:00 AM", venue:"Seattle", grp:"Group F", cls:"grp" },
+        { teams:[["🇨🇮","Ivory Coast"],["🇩🇪","Germany"]], time:"7:00 AM", venue:"Philadelphia", grp:"Group E", cls:"grp" },
+        { teams:[["🇹🇳","Tunisia"],["🇳🇱","Netherlands"]], time:"10:00 AM", venue:"Houston", grp:"Group F", cls:"grp" },
+        { teams:[["🇳🇿","New Zealand"],["🇧🇪","Belgium"]], time:"1:00 PM", venue:"Seattle", grp:"Group G", cls:"grp", nz:true }
+      ]},
+      { name:"Sat", date:"27 Jun", iso:"2026-06-27", matches:[
+        { teams:[["🇮🇷","Iran"],["🇪🇬","Egypt"]], time:"4:00 AM", venue:"Boston", grp:"Group G", cls:"grp" },
+        { teams:[["🇸🇦","Saudi Arabia"],["🇺🇾","Uruguay"]], time:"7:00 AM", venue:"Kansas City", grp:"Group H", cls:"grp" },
+        { teams:[["🇨🇻","Cape Verde"],["🇪🇸","Spain"]], time:"10:00 AM", venue:"Atlanta", grp:"Group H", cls:"grp" },
+        { teams:[["🇳🇴","Norway"],["🇫🇷","France"]], time:"1:00 PM", venue:"New Jersey", grp:"Group I", cls:"grp" }
+      ]},
+      { name:"Sun", date:"28 Jun", iso:"2026-06-28", matches:[
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" }
+      ]},
+      { name:"Mon", date:"29 Jun", iso:"2026-06-29", matches:[
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" }
+      ]},
+      { name:"Tue", date:"30 Jun", iso:"2026-06-30", matches:[
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" }
+      ]},
+      { name:"Wed", date:"1 Jul", iso:"2026-07-01", matches:[
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" },
+        { tbc:true, grp:"Round of 32", cls:"r32" }
+      ]}
+    ]
+  },
+  {
+    label: "Week 4 · 2–8 Jul",
+    stageLbl: "Round of 32 · Round of 16",
+    stageCls: "s-r32",
+    cols: 7,
+    startDate: "2026-07-02",
+    days: [
+      { name:"Thu", date:"2 Jul",  iso:"2026-07-02", matches:[{ tbc:true, grp:"Round of 32", cls:"r32" },{ tbc:true, grp:"Round of 32", cls:"r32" }]},
+      { name:"Fri", date:"3 Jul",  iso:"2026-07-03", matches:[{ tbc:true, grp:"Round of 32", cls:"r32" },{ tbc:true, grp:"Round of 32", cls:"r32" }]},
+      { name:"Sat", date:"4 Jul",  iso:"2026-07-04", matches:[{ tbc:true, grp:"Round of 16", cls:"r16" },{ tbc:true, grp:"Round of 16", cls:"r16" }]},
+      { name:"Sun", date:"5 Jul",  iso:"2026-07-05", matches:[{ tbc:true, grp:"Round of 16", cls:"r16" },{ tbc:true, grp:"Round of 16", cls:"r16" }]},
+      { name:"Mon", date:"6 Jul",  iso:"2026-07-06", matches:[{ tbc:true, grp:"Round of 16", cls:"r16" },{ tbc:true, grp:"Round of 16", cls:"r16" }]},
+      { name:"Tue", date:"7 Jul",  iso:"2026-07-07", matches:[{ tbc:true, grp:"Round of 16", cls:"r16" },{ tbc:true, grp:"Round of 16", cls:"r16" }]},
+      { name:"Wed", date:"8 Jul",  iso:"2026-07-08", matches:[] }
+    ]
+  },
+  {
+    label: "Week 5 · 9–15 Jul",
+    stageLbl: "Quarterfinals · Semifinals",
+    stageCls: "s-qf",
+    cols: 7,
+    startDate: "2026-07-09",
+    days: [
+      { name:"Thu", date:"9 Jul",  iso:"2026-07-09", matches:[{ tbc:true, grp:"Quarterfinal", cls:"qf" },{ tbc:true, grp:"Quarterfinal", cls:"qf" }]},
+      { name:"Fri", date:"10 Jul", iso:"2026-07-10", matches:[{ tbc:true, grp:"Quarterfinal", cls:"qf" },{ tbc:true, grp:"Quarterfinal", cls:"qf" }]},
+      { name:"Sat", date:"11 Jul", iso:"2026-07-11", matches:[{ tbc:true, grp:"Quarterfinal", cls:"qf" }]},
+      { name:"Sun", date:"12 Jul", iso:"2026-07-12", matches:[] },
+      { name:"Mon", date:"13 Jul", iso:"2026-07-13", matches:[] },
+      { name:"Tue", date:"14 Jul", iso:"2026-07-14", matches:[{ tbc:true, grp:"Semifinal", cls:"sf" }]},
+      { name:"Wed", date:"15 Jul", iso:"2026-07-15", matches:[{ tbc:true, grp:"Semifinal", cls:"sf" }]}
+    ]
+  },
+  {
+    label: "Week 6 · 16–19 Jul",
+    stageLbl: "3rd place playoff · Final",
+    stageCls: "s-fin",
+    cols: 4,
+    startDate: "2026-07-16",
+    days: [
+      { name:"Thu", date:"16 Jul", iso:"2026-07-16", matches:[] },
+      { name:"Fri", date:"17 Jul", iso:"2026-07-17", matches:[] },
+      { name:"Sat", date:"18 Jul", iso:"2026-07-18", matches:[
+        { tbc:true, grp:"3rd place playoff", cls:"sf", time:"7:00 AM", venue:"TBC" }
+      ]},
+      { name:"Sun", date:"19 Jul", iso:"2026-07-19", matches:[
+        { final:true, time:"7:00 AM", venue:"MetLife Stadium, New Jersey", grp:"World Cup Final", cls:"fin" }
+      ]}
+    ]
+  }
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let currentWeek = 0;
+
+function getTodayISO() {
+  // NZST is UTC+12
+  const now = new Date();
+  const nzOffset = 12 * 60;
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  const nzTime = new Date(utc + nzOffset * 60000);
+  const y = nzTime.getFullYear();
+  const m = String(nzTime.getMonth()+1).padStart(2,'0');
+  const d = String(nzTime.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+
+function getAutoWeek() {
+  const today = getTodayISO();
+  let best = 0;
+  for (let i = 0; i < WEEKS.length; i++) {
+    const w = WEEKS[i];
+    const days = w.days.map(d => d.iso);
+    if (days.includes(today)) return i;
+    if (w.startDate <= today) best = i;
+  }
+  return best;
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function renderMatch(m) {
+  if (m.final) {
+    return `<div class="match fin">
+      <div class="grp-lbl">${m.grp}</div>
+      <div class="final-label">🏆 To be confirmed</div>
+      <div class="match-meta">
+        <span class="time">⏰ ${m.time} NZST</span>
+        <span class="venue">📍 ${m.venue}</span>
+      </div>
+    </div>`;
+  }
+  if (m.tbc) {
+    return `<div class="match ${m.cls}">
+      <div class="grp-lbl">${m.grp}</div>
+      <div class="tbc-label">Teams to be confirmed</div>
+      ${m.time ? `<div class="match-meta"><span class="time">⏰ ${m.time} NZST</span>${m.venue && m.venue !== 'TBC' ? `<span class="venue">📍 ${m.venue}</span>` : ''}</div>` : ''}
+    </div>`;
+  }
+  const [f1, n1] = m.teams[0];
+  const [f2, n2] = m.teams[1];
+  const isNZ = m.nz || false;
+  const nz1 = n1 === "New Zealand";
+  const nz2 = n2 === "New Zealand";
+  return `<div class="match ${isNZ ? 'nz' : m.cls}">
+    <div class="grp-lbl">${m.grp}</div>
+    <div class="team-row ${nz1 ? 'nz-team' : ''}">
+      <span class="team-flag">${f1}</span>
+      <span class="team-name">${n1}</span>
+    </div>
+    <div class="vs-divider">vs</div>
+    <div class="team-row ${nz2 ? 'nz-team' : ''}">
+      <span class="team-flag">${f2}</span>
+      <span class="team-name">${n2}</span>
+    </div>
+    <div class="match-meta">
+      <span class="time">⏰ ${m.time} NZST</span>
+      <span class="venue">📍 ${m.venue}</span>
+    </div>
+  </div>`;
+}
+
+function render() {
+  const w = WEEKS[currentWeek];
+  const today = getTodayISO();
+
+  // Nav label & dots
+  document.getElementById('nav-label').textContent = w.label;
+  document.getElementById('btn-prev').disabled = currentWeek === 0;
+  document.getElementById('btn-next').disabled = currentWeek === WEEKS.length - 1;
+  const dotsEl = document.getElementById('nav-dots');
+  dotsEl.innerHTML = WEEKS.map((_,i) =>
+    `<div class="nav-dot ${i===currentWeek?'active':''}" onclick="jumpWeek(${i})" title="${WEEKS[i].label}"></div>`
+  ).join('');
+
+  const gridCls = w.cols === 7 ? 'grid-7' : 'grid-4';
+  let html = `<span class="stage-badge ${w.stageCls}">${w.stageLbl}</span>`;
+  html += `<div class="grid ${gridCls}">`;
+
+  for (const day of w.days) {
+    const isToday = day.iso === today;
+    html += `<div class="day-col ${isToday ? 'today' : ''}">`;
+    html += `<div class="day-name">${day.name}${isToday ? ' · today' : ''}</div>`;
+    html += `<div class="day-date">${day.date}</div>`;
+    if (!day.matches.length) {
+      html += `<div class="rest">Rest day</div>`;
+    }
+    for (const m of day.matches) html += renderMatch(m);
+    html += `</div>`;
+  }
+  html += `</div>`;
+  document.getElementById('content').innerHTML = html;
+
+  // Ticker – next NZ match
+  const nzMatches = [];
+  for (const wk of WEEKS) {
+    for (const day of wk.days) {
+      for (const m of day.matches) {
+        if (m.nz) nzMatches.push({ date: day.date, time: m.time, teams: m.teams });
+      }
+    }
+  }
+  const upcoming = nzMatches.filter((m,i) => {
+    const d = WEEKS.flatMap(w => w.days).find(d => d.matches.some(mm => mm === m || (mm.nz && mm.teams === m.teams)));
+    return true;
+  });
+  if (nzMatches.length) {
+    const next = nzMatches[0];
+    const n1 = next.teams[0][1], n2 = next.teams[1][1];
+    document.getElementById('ticker-nz').textContent = `🇳🇿 Next NZ match: ${n1} vs ${n2} · ${nzMatches[0] ? WEEKS.flatMap(w=>w.days).find(d=>d.matches.some(m=>m.nz&&m.teams===next.teams))?.date || '' : ''} · ${next.time} NZST`;
+  }
+}
+
+function changeWeek(d) {
+  currentWeek = Math.max(0, Math.min(WEEKS.length - 1, currentWeek + d));
+  render();
+}
+function jumpWeek(i) { currentWeek = i; render(); }
+
+// ─── CLOCK ───────────────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  const nz = new Date(utc + 12 * 3600000);
+  const h = String(nz.getHours()).padStart(2,'0');
+  const m = String(nz.getMinutes()).padStart(2,'0');
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  document.getElementById('ticker-clock').textContent =
+    `${days[nz.getDay()]} ${nz.getDate()} ${nz.toLocaleString('en-NZ',{month:'short'})} · ${h}:${m} NZST`;
+}
+
+// ─── AUTO-ADVANCE ─────────────────────────────────────────────────────────────
+// Recalculate the correct week every 60 seconds in case the date ticks over
+function autoAdvance() {
+  const correct = getAutoWeek();
+  if (correct !== currentWeek) { currentWeek = correct; render(); }
+  updateClock();
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+currentWeek = getAutoWeek();
+render();
+updateClock();
+setInterval(autoAdvance, 60000);
+</script>
+</body>
+</html>
